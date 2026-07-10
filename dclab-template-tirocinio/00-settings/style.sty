@@ -1,0 +1,155 @@
+% File di lingua
+% \usepackage[italian]{babel}    
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{csquotes}
+
+% Bibliografia
+\usepackage[style=numeric, sorting=none]{biblatex}
+\addbibresource{references.bib}
+
+% Tabelle
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage[font=small,format=hang,labelfont={sf,bf}]{caption}
+\captionsetup[table]{position=top}
+\usepackage{rotating}  
+\usepackage{multirow}
+\usepackage{longtable, lscape} 
+
+% Figure
+\usepackage{subfig}
+% \usepackage{graphicx}
+\usepackage{float}
+\usepackage{minibox}
+
+% Formule
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{eurosym}
+\usepackage[italian]{varioref}
+\usepackage{mathtools}
+\usepackage{mathrsfs}
+
+% ---------------------------------------------------------------
+% NOTAZIONE MATEMATICA CONDIVISA D&CLab (NON MODIFICARE)
+% Stessi comandi in tutti i template del laboratorio (tesi, tesina,
+% relazione, slide beamer), per avere una notazione uniforme.
+% ---------------------------------------------------------------
+\usepackage{xcolor}
+\newcommand{\uno}{{\mathbf{1}}}
+\newcommand{\R}{\mathbb{R}}           % Numeri reali
+\newcommand{\Rpp}{\mathbb{R}_{>0}}    % Reali positivi
+\newcommand{\Rp}{\mathbb{R}_{\geq 0}} % Reali non negativi
+\newcommand{\N}{\mathbb{N}}           % Numeri naturali
+\newcommand{\Z}{\mathbb{Z}}           % Numeri interi
+\newcommand{\Q}{\mathbb{Q}}           % Numeri razionali
+\newcommand{\C}{\mathbb{C}}           % Numeri complessi
+\newcommand{\EE}{{\mathbb{E}}}        % Valore atteso
+\newcommand{\PP}{{\mathbb{P}}}        % Probabilita'
+\newcommand{\mc}{\mathcal}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\normsq}[1]{\left\|#1\right\|^2}
+\newcommand{\prox}{\operatorname{prox}}
+\newcommand{\proj}{\mathrm{proj}}
+\newcommand{\col}{\operatorname{col}}
+\newcommand{\bs}{\boldsymbol}
+
+% Commenti colorati tra autori/relatore durante la revisione delle bozze
+\newcommand{\RC}[1]{\textcolor{cyan}{#1}}
+\newcommand{\PS}[1]{\textcolor{magenta}{#1}}
+\newcommand{\NE}[1]{\textcolor{red}{#1}}
+\newcommand{\GC}[1]{\textcolor{blue}{#1}}
+
+\newtheorem{teorema}{Teorema}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definizione}{Definizione}
+\newtheorem{corollario}{Corollario}
+
+% Algoritmi
+\usepackage{algorithm,algorithmic}
+
+% Codice sorgente: Matlab (mcode) e Python (stile listings dedicato)
+\usepackage{listings}
+\usepackage[framed,useliterate,numbered,autolinebreaks]{00-settings/mcode}
+\lstdefinestyle{pythonstyle}{
+  language=Python,
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{blue},
+  commentstyle=\color{gray},
+  stringstyle=\color{teal},
+  numbers=left,
+  numberstyle=\tiny,
+  frame=single,
+  breaklines=true,
+  showstringspaces=false
+}
+
+% Utili
+\usepackage{import}
+\usepackage{url}
+\usepackage{ragged2e}
+\usepackage{changepage}
+\usepackage{hyperref}
+
+\hypersetup{%
+pdfpagemode={UseOutlines},
+bookmarksopen,
+pdfstartview={FitH},
+colorlinks,
+linkcolor={black},
+citecolor={blue},
+urlcolor={blue} 
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%              NON MODIFICARE                                   %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%% Frontespizio %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%% Frontespizio %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Loghi di default (usati se non sono impostati nel main.tex)
+\providecommand{\logosinistra}{00-settings/poliba.png}
+\providecommand{\logodestra}{00-settings/dmmm.png}
+\renewcommand\maketitle{
+\begin{titlepage}
+\vskip 0cm
+\begin{center}
+\includegraphics[width=0.35\textwidth]{\logosinistra}
+\hfill
+\includegraphics[width=0.35\textwidth]{\logodestra}
+\vskip 0.5cm
+\hrule
+\vskip 2cm
+\LARGE{\textbf{CORSO DI LAUREA}}
+\vskip 0.5cm
+\LARGE{\textbf{IN}}
+\vskip 0.5cm
+\LARGE{\textbf{\corsodilaurea}}
+\vskip 2cm
+\hrule
+\vskip 3cm
+\LARGE{\textbf{Relazione finale tirocinio}}
+\end{center}
+\vskip 2cm
+\noindent\Large{Tirocinio: \tipo}
+\vskip 0.2cm
+\noindent\Large{Presso: Decision \& Control Laboratory}
+\vskip 0.2cm
+\noindent\Large{Periodo: da \underline{\periododa} \:a \underline{\periodoa}}
+\vskip 3cm
+\noindent\Large{STUDENTE: \studenti}
+\vskip 0.6cm
+\noindent\Large{TUTOR ACCADEMICO: \tutor}
+\vskip 0.6cm
+\hrule
+\author{}
+\title{}
+\end{titlepage}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
