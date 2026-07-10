@@ -1,0 +1,14 @@
+# Configurazione della galleria LaTeX.
+# Per un dominio personalizzato imposta GALLERY_BASE_URL in Actions oppure modifica base_url.
+site_title: "D&CLab LaTeX templates"
+base_url: "https://decision-and-control-lab.github.io/dclab-template"
+github_repository: "Decision-and-Control-Lab/dclab-template"
+github_branch: "main"
+
+output_gallery: "templates/index.html"
+output_stylesheet: "templates/gallery.css"
+output_pdfs: "assets/templates/pdfs"
+output_previews: "assets/templates/previews"
+output_downloads: "assets/templates/downloads"
+preview_dpi: 144
+compile_timeout_seconds: 600
