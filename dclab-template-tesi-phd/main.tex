@@ -1,0 +1,174 @@
+% =====================================================
+% NOTE ON THESIS TEMPLATE
+% -----------------------------------------------------
+% This template can be used in two ways:
+%
+% 1) Chapter-based thesis:
+%    - Standard structure with chapters (Introduction, Chapter 1, …, Conclusion).
+%    - A single global bibliography is printed at the end of the thesis.
+%
+% 2) Paper-based thesis:
+%    - Each paper is placed in its own folder (e.g., Chapters/Paper_1/).
+%    - Inside each folder you can keep main.tex, abstract, figures/, tables/, etc.
+%    - Each paper has its own local bibliography, printed at the end of that paper.
+%
+% Switch between the two by commenting/uncommenting the relevant lines, see below.
+% =====================================================
+
+\documentclass[10pt, oneside, colophon, english, final]{phddausy}
+% Disable thumb index blocks
+\makeatletter
+\renewcommand{\paperthumb}{}%
+\makeatother
+
+% ------------------------------
+% PACKAGES
+% ------------------------------
+\usepackage{0package}       
+\usepackage{kantlipsum}    
+
+% Glossaries and acronyms
+\let\printglossary\relax
+\let\theglossary\relax
+\let\endtheglossary\relax
+\usepackage[acronym,indexonlyfirst,nomain,xindy,toc]{glossaries}
+% \usepackage[ruled, vlined, linesnumbered]{algorithm2e} % For pseudocode if needed
+
+% ------------------------------
+% GLOSSARY DEFINITIONS
+% ------------------------------
+\makeglossaries
+\newacronym{ai}{AI}{\textit{artificial intelligence}}
+\newacronym{ml}{ML}{\textit{machine learning}}
+
+% ------------------------------
+% TITLE INFORMATION
+% ------------------------------
+\author{Name Surname}
+\title{Title of the Thesis}
+% \subtitle{Optional subtitle}
+\department{Italian National Ph.D. Program in Autonomous Systems}
+\faculty{University Name}
+\ayear{2025}
+\affiliation
+{\textbf{Tutors}
+  \and Prof. Engr. \textit{Name Surname}
+  \and Dr. Engr. \textit{Name Surname}
+}
+
+% ------------------------------
+% BEGIN DOCUMENT
+% ------------------------------
+\begin{document}
+% FRONTMATTER: Roman numerals, unnumbered chapters
+\frontmatter
+\dausytitle
+\include{Chapters/info}    
+
+\include{Chapters/abstract}
+\include{Chapters/dedication}
+
+\cleartorecto
+\setcounter{secnumdepth}{1}
+\setcounter{tocdepth}{2}
+\tableofcontents*
+
+% Optionally add lists of figures/tables
+\cleartorecto
+\listoffigures*
+\cleartorecto
+\listoftables*
+
+\cleartorecto
+\nobibintoc
+\printglossary[type=\acronymtype]
+
+\cleartorecto
+\include{Chapters/preface}    
+
+% MAINMATTER: Arabic numerals, numbered chapters
+\mainmatter
+
+% Uncomment if using a paper-based thesis style
+% \paper              % Changes "Chapter" → "Paper"
+% \paperpage          % Adds "Papers" in TOC
+\numberofpapers{2}   % Number of "papers" for thumb indices (if relevant)
+
+% ------------------------------
+% INTRODUCTION
+% ------------------------------
+\part*{Introduction}\thispagestyle{empty}
+\cftaddtitleline{toc}{chapter}{Introduction}{}
+\cleartorecto
+\include{Chapters/introduction}
+
+% ------------------------------
+% PART 1
+% ------------------------------
+\part*{Part 1}\thispagestyle{empty}
+\cftaddtitleline{toc}{chapter}{Part 1}{}
+\cleartorecto
+
+% Chapter-based thesis style:
+\include{Chapters/chapter_2}
+\include{Chapters/chapter_3}
+% OR paper-based thesis style:
+%\include{Chapters/Paper_1/main}
+
+% ------------------------------
+% PART 2
+% ------------------------------
+\part*{Part 2}\thispagestyle{empty}
+\cftaddtitleline{toc}{chapter}{Part 2}{}
+\cleartorecto
+
+% Chapter-based thesis style:
+\include{Chapters/chapter_4}
+\include{Chapters/chapter_5}
+% OR paper-based thesis style:
+% \include{Chapters/Paper_2/main}
+
+% ------------------------------
+% CONCLUSION
+% ------------------------------
+\part*{Conclusions}\thispagestyle{empty}
+\cftaddtitleline{toc}{chapter}{Conclusions}{}
+\cleartorecto
+\include{Chapters/conclusion}
+
+\cleartorecto
+
+% ------------------------------
+% APPENDICES
+% ------------------------------
+\appendixpage   % Title page for appendices (appears in TOC)
+\begin{appendices}
+  \include{Chapters/appendix.tex}
+\end{appendices}
+
+%% -------------------------------
+%% BIBLIOGRAPHY
+%% -------------------------------
+
+%% GLOBAL BIBLIOGRAPHY (default, one list for the whole thesis):
+%% Use this if you want a single bibliography at the end of the thesis.
+\cleartorecto
+\printbibliography[heading=bibliography, title={References}]
+
+%% ---------------------------------
+%% CHAPTER-BASED BIBLIOGRAPHY (optional):
+%% Uncomment the last lines inside each chapter if you want
+%% a separate bibliography at the end of every chapter (paper-based thesis style).
+%%% IMPORTANT: You must enable in 0package.sty, line 175:
+%%   \RequirePackage[..., refsection=chapter]{biblatex}
+
+% ------------------------------
+% BACKPAGE (EMPTY)
+% ------------------------------
+\newpage
+\cleartorecto
+\thispagestyle{empty}
+\null
+\vfill
+
+\end{document}

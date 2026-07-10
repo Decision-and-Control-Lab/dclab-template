@@ -1,0 +1,327 @@
+\NeedsTeXFormat{LaTeX2e}
+
+\ProvidesPackage{0package}[15 luglio 2022]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PACKAGES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Standalone
+\RequirePackage{standalone}
+\let\proof\relax
+\let\endproof\relax
+
+% Import other sections
+\RequirePackage{import}
+
+%% Encoding
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+
+%% Language
+\RequirePackage[english]{babel} % english,italian
+\RequirePackage{csquotes}
+\RequirePackage{tgadventor}
+
+\RequirePackage[scaled]{beramono}  % Bera Mono (Bitstream Vera Sans Mono)
+\RequirePackage[final]{microtype}  % Improved typography
+\pretolerance = 1000               % Relaxes parameters for line breaks
+\tolerance    = 2000               % Relaxes parameters for line breaks
+\setlength{\emergencystretch}{1em} % Relaxes parameters for line breaks
+\RequirePackage{siunitx}           % Typesetting units
+\RequirePackage{listings}          % Typesetting code
+\lstset
+{
+basicstyle       = \ttfamily\footnotesize,
+keywordstyle     = \color{uiored},
+commentstyle     = \color{uiogrey},
+stringstyle      = \itshape,
+showstringspaces = false
+}
+
+%% Mathematics and Symbols
+\RequirePackage{amssymb}    % Extra symbols
+\RequirePackage{amsmath}    % AMS mathematical facilities for LaTeX
+\RequirePackage{amsfonts}   % TeX fonts from the AMS
+\RequirePackage{mathrsfs}   % Support for using RSFS fonts in maths
+\RequirePackage{amsthm}   % Theorem-like environments, extends amsthm
+\RequirePackage{thmtools}   % Theorem-like environments, extends amsthm
+\RequirePackage{dsfont}     % Double stroke font with \mathds{}
+\RequirePackage{cancel}     % Cancel terms with \cancel, \bcancel or \xcancel
+\RequirePackage{stmaryrd}   % Brackets
+\RequirePackage{eurosym}    % Euro symbol
+\RequirePackage{textcomp}   % Usefull symbols
+\RequirePackage{bigints}    % Big Integrals
+\RequirePackage{nccmath}    % Extended mathematics capabilities
+\RequirePackage{mathtools}  % Fonts and environments for mathematical formulae
+\RequirePackage{nicefrac}   % Nice inline fractions
+\RequirePackage{siunitx}    % Measure units
+
+\everymath
+{
+\ifodd\value{page}          % Allow multiline equations
+\allowdisplaybreaks[1]  % to break across two pages:
+\else                   % - Breaks from odd to even pages are allowed,
+\allowdisplaybreaks[4]  %   but discouraged.
+\fi                         % - Breaks from even to odd pages are allowed.
+}
+
+%% Algorithms
+\RequirePackage{algorithmic}
+\RequirePackage[chapter]{algorithm}
+
+
+%% Lists
+% \let\labelindent\relax
+% \setlist[enumerate]{noitemsep} % \setlist{nosep}
+
+\RequirePackage{enumitem}
+\setlist[itemize]    {font = \upshape,           before = \leavevmode, itemsep = 1pt}
+\setlist[enumerate]  {font = \upshape,           before = \leavevmode, itemsep = 1pt}
+\setlist[description]{font = \bfseries\sffamily, before = \leavevmode, itemsep = 1pt}
+% \foreach \env in {theorem, corollary, lemma, proposition, observation,
+%                   conjecture, definition, example, notation, remark}
+% {
+%     \AtBeginEnvironment{\env}
+%     {
+%         \setlist[enumerate, 1]{wide,
+%                               label = \thetheorem.\arabic{*}.,
+%                               ref   = \thetheorem.\arabic{*}}
+%     }
+% }
+
+%% Figures
+\RequirePackage{graphicx}
+\RequirePackage[caption=false, position=top, font=footnotesize]{subfig} % Subfig options: position=top
+\RequirePackage[percent]{overpic}
+\RequirePackage{epstopdf,epsfig}
+
+\RequirePackage[font=footnotesize, labelfont=bf]{caption}
+% \RequirePackage{stfloats}
+% \RequirePackage{float}
+% \RequirePackage{minibox}
+
+% Color 
+\RequirePackage{color}
+\RequirePackage{soul,framed} %,caption
+% \RequirePackage[dvipsnames,svgnames,x11names]{xcolor}
+% \colorlet{shadecolor}{yellow}
+
+%% Tables
+\RequirePackage{multirow}        % Rows spanning multiple lines in tables
+\RequirePackage{tablefootnote}   % Footnotes for tables
+\RequirePackage{threeparttable} % Footnotes for tables
+\RequirePackage{array}
+% \RequirePackage{tabularx} % utile per \begin{tabularx}{\textwidth}{|X|X|X|}
+% \RequirePackage{booktabs}
+% \captionsetup[table]{position=top}
+% \RequirePackage{rotating}  
+% \RequirePackage{multirow}
+% \RequirePackage{longtable}
+% RequirePackage{lscape} 
+
+%% Two section mode
+\RequirePackage{cuted} % Mixing onecolumn and twocolumn modes
+\RequirePackage{balance}  % Balance two columns of the last page
+\RequirePackage{flushend} % Balance two columns of the last page
+
+%% Drawing
+\usetikzlibrary{intersections}
+\usetikzlibrary{decorations.markings}
+
+%% Miscellaneous
+\RequirePackage{adjustbox}
+\RequirePackage{etoolbox} % Hooks
+\RequirePackage{pgffor}   % For-loops
+\RequirePackage{xspace}   % Clever space
+\RequirePackage{titletoc} % Partial table of contents
+\RequirePackage[normalem]{ulem} % Underlining and striking out 
+\RequirePackage{ragged2e}
+% \usepackage{mwe}
+\usepackage{changepage}
+% \usepackage{parskip}
+\usepackage{blindtext}    % Blind text
+
+%% Cross references and links
+\RequirePackage[obeyspaces, spaces, hyphens]{url}             % Format URLs
+\urlstyle{sf}
+\RequirePackage{varioref}                                     % \vref
+\RequirePackage[pdfusetitle]{hyperref}                        % Clickable links
+\RequirePackage[capitalize, noabbrev]{cleveref}   % \cref (nameinlink)
+\RequirePackage{doi}           % Ignore LaTeX syntax in DOI links
+\renewcommand{\doitext}{DOI:\space}
+\definecolor{mygray}{gray}{0.15}
+
+\hypersetup{%
+pdfpagemode={UseOutlines},
+bookmarksopen,
+pdfstartview={FitH},
+colorlinks = true,
+linkcolor=mygray,
+citecolor=BrickRed,
+urlcolor=RoyalBlue,
+pdftitle={DAUSY PhD Thesis},
+pdfpagemode=FullScreen,
+}
+
+\urlstyle{same}
+
+%% Bibliography
+\RequirePackage{mathscinet}
+\RequirePackage[backend    = biber,
+sortcites  = true,
+giveninits = true,
+doi        = true,
+isbn       = false,
+url        = true,
+defernumbers=true,
+% refsection = chapter % ← keep DISABLED for a single global bibliography
+style      = ieee]{biblatex}
+
+\DeclareSortingTemplate{ymdnt}{
+\sort{
+\field{presort}
+}
+\sort[final]{
+\field{sortkey}
+}
+\sort[direction=descending]{
+\field[strside=left,strwidth=4]{sortyear}
+\field[strside=left,strwidth=4]{year}
+\literal{9999}
+}
+\sort[direction=descending]{
+\field[padside=left,padwidth=2,padchar=0]{month}
+\literal{00}
+}
+\sort[direction=descending]{
+\field[padside=left,padwidth=2,padchar=0]{day}
+\literal{00}
+}
+\sort{
+\field{sortname}
+\field{author}
+\field{editor}
+\field{translator}
+\field{sorttitle}
+\field{title}
+}
+\sort{
+\field{sorttitle}
+\field{title}
+}
+}
+
+\DeclareNameAlias{sortname}{family-given}
+\DeclareNameAlias{default}{family-given}
+\DeclareFieldFormat[article]{volume}{\bibstring{jourvol}\addnbspace#1}
+\DeclareFieldFormat[article]{number}{\bibstring{number}\addnbspace#1}
+\renewbibmacro*{volume+number+eid}
+{
+\printfield{volume}
+\setunit{\addcomma\space}
+\printfield{number}
+\setunit{\addcomma\space}
+\printfield{eid}
+}
+
+\addbibresource{biblio.bib}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% USER-DEFINED MACROS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeatletter
+\let\leftbar\@undefined
+\let\endleftbar\@undefined
+\makeatother
+
+
+\declaretheoremstyle[headfont=\bfseries\itshape\sffamily,%
+spaceabove=16pt, spacebelow=6pt,
+notefont=\normalfont\bfseries\itshape,%
+% bodyfont   = \itshape,% 
+notebraces={(}{)},%
+thmbox=L,
+headpunct=:,%
+postheadspace=0em,
+qed=$\square$,%\square
+]{stds}
+\declaretheorem[style=stds,  numberwithin = section]{definition}
+\declaretheorem[style=stds,  numberwithin = section]{lemma}
+\declaretheorem[style=stds,  numberwithin = section]{theorem}
+\declaretheorem[style=stds,  numberwithin = section]{proposition}
+\declaretheorem[style=stds,  numberwithin = section]{corollary}
+\declaretheorem[style=stds,  numberwithin = section]{assumption}
+\declaretheorem[style=stds,  numberwithin = section]{remark}
+\declaretheorem[style=stds,  numberwithin = section]{example}
+
+\declaretheoremstyle[headfont=\bfseries\itshape\sffamily,%
+spaceabove=16pt, spacebelow=6pt,
+notefont=\normalfont\bfseries\itshape,%
+notebraces={()}{)},%
+% bodyfont   = \itshape,% 
+headpunct = :,%
+thmbox=L,
+postheadspace=0em,
+qed=$\blacksquare$,%\square
+]{cProof}
+\declaretheorem[style=cProof,  numberwithin = section]{Proof}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% USER-DEFINED OPERATORS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\NN}{{\mathbb{N}}}
+\newcommand{\EE}{{\mathbb{E}}}
+\newcommand{\PP}{{\mathbb{P}}}
+\newcommand{\JJ}{{\mathbb{J}}}
+\newcommand{\FF}{{\mathbb{F}}}
+\newcommand{\HH}{{\mathbb{H}}}
+\newcommand{\VI}{{\mathrm{VI}}}
+\newcommand{\SVI}{{\mathrm{SVI}}}
+\newcommand{\mc}{\mathcal}
+\newcommand{\EEk}[1]{\EE\left[#1|\mc F_k\right]}
+\newcommand{\EEx}[1]{\EE\left[#1\right]}
+\newcommand{\col}{\operatorname{col}}
+\newcommand\need[1]{\marginpar{\color{blue}\scriptsize\ttfamily Needed: #1}}
+\newcommand{\prox}{\operatorname{prox}}
+\newcommand{\tc}{\textcolor}
+\newcommand{\tcb}{\textcolor{blue}}
+\newcommand{\proj}{\mathrm{proj}}
+\newcommand{\dist}{\mathrm{dist}}
+\newcommand{\argmin}{\mathrm{argmin}}
+\newcommand{\fineass}{\hfill\small$\square$}
+\newcommand{\ld}{, \allowbreak ..., \allowbreak}
+
+%% Blackboard bold
+\newcommand{\R}{\mathbb{R}}              % Real numbers
+\newcommand{\Rpp}{\mathbb{R}_{>0}}       % Real numbers 
+\newcommand{\Rp}{\mathbb{R}_{\geq 0}}    % Real numbers
+\newcommand{\N}{\mathbb{N}}              % Natural numbers
+\newcommand{\Z}{\mathbb{Z}}              % Integers
+\newcommand{\Q}{\mathbb{Q}}              % Rational numbers
+\newcommand{\C}{\mathbb{C}}              % Complex numbers
+\newcommand{\A}{\mathbb{A}}              % Affine space
+\renewcommand{\P}{\mathbb{P}}            % Projective space
+\newcommand{\B}{\mathbb{B}}              % Real numbers
+
+%% Bold face
+\renewcommand{\a}{\mathbf{a}}
+\renewcommand{\b}{\mathbf{b}}
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\y}{\mathbf{y}}
+\newcommand{\0}{\mathbf{0}}
+\newcommand{\1}{\mathbf{1}}
+
+%% Operators
+\newcommand{\diff}{\mathop{}\!\mathrm{d}}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\rank}{rank}
+
+%% Delimiters
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\normsq}[1]{\left\|#1\right\|^2}
+
+\DeclarePairedDelimiter{\p}{\lparen}{\rparen}          % Parenthesis
+\DeclarePairedDelimiter{\set}{\lbrace}{\rbrace}        % Set
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}          % Absolute value
+\DeclarePairedDelimiter{\ip}{\langle}{\rangle}         % Inner product, ideal
+\DeclarePairedDelimiter{\sqb}{\lbrack}{\rbrack}        % Square brackets
+\DeclarePairedDelimiter{\ssqb}{\llbracket}{\rrbracket} % Double brackets
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}         % Ceiling
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}      % Floor
+
+\endinput

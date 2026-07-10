@@ -1,0 +1,256 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PACKAGES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{00-settings/style}[15 luglio 2022]
+
+%% Font encoding (necessario per apici, accenti e codice sorgente Python/Matlab)
+\RequirePackage[T1]{fontenc}
+
+%% Standalone
+\RequirePackage{standalone}
+
+%% Import other sections
+\RequirePackage{import}
+
+%% Language
+\RequirePackage[english]{babel} % english,italian
+
+%% Mathematics and Symbols
+\RequirePackage{amssymb}    % Extra symbols
+\RequirePackage{amsmath}    % AMS mathematical facilities for LaTeX
+\RequirePackage{amsfonts}   % TeX fonts from the AMS
+\RequirePackage{mathrsfs}   % Support for using RSFS fonts in maths
+\RequirePackage{mathtools}  % Fonts and environments for mathematical formulae
+\RequirePackage{mathrsfs}   % Script font with \mathscr{}
+\RequirePackage{dsfont}     % Double stroke font with \mathds{}
+\RequirePackage{cancel}     % Cancel terms with \cancel, \bcancel or \xcancel
+\RequirePackage{stmaryrd}   % Brackets
+\RequirePackage{eurosym}    % Euro symbol
+\RequirePackage{textcomp}   % Usefull symbols
+\RequirePackage{bigints}    % Big Integrals
+\RequirePackage{nccmath}    % Extended mathematics capabilities
+
+%% Algorithms
+\RequirePackage{algorithmic}
+\RequirePackage{algorithm}
+
+%% Figures
+\RequirePackage{graphicx}
+\RequirePackage[caption=false, position=top, font=scriptsize]{subfig} % Subfig options: position=top
+\RequirePackage[labelformat=empty, font=footnotesize, textfont=it]{caption}
+
+
+%% Tables
+\RequirePackage{multirow}      % Rows spanning multiple lines in tables
+\RequirePackage{tablefootnote} % Footnotes for tables
+\RequirePackage{array}
+
+%% Two section mode
+\RequirePackage{cuted} % Mixing onecolumn and twocolumn modes
+\RequirePackage{balance}  % Balance two columns of the last page
+\RequirePackage{flushend} % Balance two columns of the last page
+
+%% Codice sorgente: Matlab (mcode) e Python (stile listings dedicato)
+\RequirePackage{listings}
+\RequirePackage[framed,useliterate,numbered,autolinebreaks]{00-settings/mcode}
+\lstdefinestyle{pythonstyle}{
+  language=Python,
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{blue},
+  commentstyle=\color{gray},
+  stringstyle=\color{teal},
+  numbers=left,
+  numberstyle=\tiny,
+  frame=single,
+  breaklines=true,
+  showstringspaces=false
+}
+
+%% Miscellaneous
+\RequirePackage{adjustbox}
+\RequirePackage[normalem]{ulem} % Underlining and striking out 
+
+%% Cross references and links
+\RequirePackage{url}             % Format URLs
+\hypersetup{%
+pdfpagemode={UseOutlines},
+bookmarksopen,
+pdfstartview={FitH},
+colorlinks,
+linkcolor={black},
+citecolor={BlueGreen},
+urlcolor={BlueGreen},
+}
+\urlstyle{same}
+
+%% Bibliography
+\RequirePackage{cite}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% USER-DEFINED OPERATORS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\uno}{{\mathbf{1}}}
+\newcommand{\NN}{{\mathbb{N}}}
+\newcommand{\EE}{{\mathbb{E}}}
+\newcommand{\PP}{{\mathbb{P}}}
+\newcommand{\JJ}{{\mathbb{J}}}
+\newcommand{\FF}{{\mathbb{F}}}
+\newcommand{\HH}{{\mathbb{H}}}
+\newcommand{\VI}{{\mathrm{VI}}}
+\newcommand{\SVI}{{\mathrm{SVI}}}
+\newcommand{\mc}{\mathcal}
+\newcommand{\EEk}[1]{\EE\left[#1|\mc F_k\right]}
+\newcommand{\EEx}[1]{\EE\left[#1\right]}
+\newcommand{\col}{\operatorname{col}}
+\newcommand\need[1]{\marginpar{\color{blue}\scriptsize\ttfamily Needed: #1}}
+\newcommand{\prox}{\operatorname{prox}}
+\newcommand{\tc}{\textcolor}
+\newcommand{\tcb}{\textcolor{blue}}
+\newcommand{\proj}{\mathrm{proj}}
+\newcommand{\bs}{\boldsymbol}
+\newcommand{\fineass}{\hfill\small$\square$}
+\newcommand{\ld}{, \allowbreak ..., \allowbreak}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\normsq}[1]{\left\|#1\right\|^2}
+
+%% Blackboard bold
+\newcommand{\R}{\mathbb{R}}    % Real numbers
+\newcommand{\Rpp}{\mathbb{R}_{>0}}    % Real numbers 
+\newcommand{\Rp}{\mathbb{R}_{\geq 0}}    % Real numbers
+\newcommand{\N}{\mathbb{N}}    % Natural numbers
+\newcommand{\Z}{\mathbb{Z}}    % Integers
+\newcommand{\Q}{\mathbb{Q}}    % Rational numbers
+\newcommand{\C}{\mathbb{C}}    % Complex numbers
+\newcommand{\A}{\mathbb{A}}    % Affine space
+\renewcommand{\P}{\mathbb{P}}  % Projective space
+
+%% Bold face
+\renewcommand{\a}{\mathbf{a}}
+\renewcommand{\b}{\mathbf{b}}
+\newcommand{\y}{\mathbf{y}}
+\newcommand{\0}{\mathbf{0}}
+\newcommand{\1}{\mathbf{1}}
+
+\newcommand{\RC}[1]{\textcolor{cyan}{#1}}
+\newcommand{\PS}[1]{\textcolor{magenta}{#1}}
+\newcommand{\NE}[1]{\textcolor{red}{#1}}
+\newcommand{\GC}[1]{\textcolor{blue}{#1}}
+\newcommand{\OLD}[1]{\textcolor{yellow}{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Presentation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\RequirePackage{appendixnumberbeamer}
+\RequirePackage{booktabs}
+\RequirePackage{cases}
+\RequirePackage[short, c3]{optidef}
+\RequirePackage[usestackEOL]{stackengine}
+\RequirePackage[scale=2]{ccicons}
+\RequirePackage{xspace}
+\addtobeamertemplate{frametitle continuation}{ (\hspace{-1mm}}{)}
+
+\setbeamercolor{alerted text}{fg=BlueGreen, bg=BlueGreen}
+\setbeamercolor{frametitle}{parent=structure}
+\setbeamercolor{title separator}{fg=BlueGreen}
+\setbeamercolor{progress bar in section page}{fg=BlueGreen}
+\setbeamercolor{frame footer}{parent=structure}
+
+\setbeamerfont{page number in head/foot}{size=\tiny}
+\setbeamerfont{footline}{size=\tiny}
+\setbeamerfont{title}{size = \large}
+\setbeamerfont{subtitle}{size = \normalsize}
+\setbeamerfont{author}{size = \small}
+
+\setbeamertemplate{date}{
+\vspace*{5mm}
+\insertdate%
+\par%
+}
+
+\setbeamertemplate{institute}{
+\vspace*{0.5em}
+\insertinstitute%
+\par%
+}
+
+\setbeamertemplate{title}{
+ \vspace*{2em}
+  \raggedright%
+  \linespread{1.0}%
+  \textcolor{BlueGreen}{\textbf{\inserttitle}}%
+  \par%
+  \vspace*{0.5em}
+}
+\setbeamertemplate{subtitle}{
+  \raggedright%
+  \textit{\insertsubtitle}%
+  \par%
+}
+
+\setbeamertemplate{author}{
+  \vspace*{0.5em}
+  \insertauthor%
+  \par%
+  \vspace*{0.25em}
+}
+
+\setbeamertemplate{title page}{
+  \begin{minipage}[b][\paperheight]{\textwidth}
+    \ifx\inserttitlegraphic\@empty\else\usebeamertemplate*{title graphic}\fi
+    \vfill%
+    \ifx\inserttitle\@empty\else\usebeamertemplate*{title}\fi
+    \ifx\insertsubtitle\@empty\else\usebeamertemplate*{subtitle}\fi
+    \usebeamertemplate*{title separator}
+    \ifx\beamer@shortauthor\@empty\else\usebeamertemplate*{author}\fi
+    \ifx\insertinstitute\@empty\else\usebeamertemplate*{institute}\fi
+    \ifx\insertdate\@empty\else\usebeamertemplate*{date}\fi
+    {\scriptsize \textbf{Presenting author:} \insertshortauthor}
+    % 
+    \vspace*{10mm}
+  \end{minipage}
+}
+% ---------------------------------------------------------------
+% LOGHI IN BASSO A DESTRA (su ogni slide)
+% Disegnati in TikZ cosi' che il numero di loghi sia scelto
+% liberamente dallo studente: basta cambiare la lista \loghi in
+% main.tex (vedi CONFIGURA QUI). Il resto dell'aspetto della slide
+% (colori, riquadri, linee di avanzamento) e' gia' fornito dal tema
+% Metropolis: non aggiungiamo altri elementi decorativi per non
+% entrare in conflitto con il suo stile.
+% ---------------------------------------------------------------
+\RequirePackage{tikz}
+\usetikzlibrary{calc}
+
+% Lista di loghi di default (separati da virgola, nessun limite al numero).
+% Per non mostrare alcun logo: \renewcommand{\loghi}{}
+\providecommand{\loghi}{00-settings/LogoPoliBa.png,00-settings/LogoDandC.png,00-settings/dmmm.png}
+
+\setbeamertemplate{background}{
+  \begin{tikzpicture}[remember picture, overlay]
+    \node[anchor=south east, xshift=-0.25cm, yshift=0.5cm] at (current page.south east) {
+      \foreach \img in \loghi {\includegraphics[height=5.5mm]{\img}\hspace{3mm}}
+    };
+  \end{tikzpicture}
+}
+\defbeamertemplate*{frametitle}{myframetitle}{%
+    \nointerlineskip
+    \begin{beamercolorbox}[%
+        wd=\paperwidth,%
+        sep=0pt,%
+        leftskip=\metropolis@frametitle@padding,
+        rightskip=\metropolis@frametitle@padding,
+        ignorebg,
+        ]{frametitle}%
+        \metropolis@frametitlestrut@start
+        \insertframetitle
+        \nolinebreak
+        \metropolis@frametitlestrut@end
+    \end{beamercolorbox}
+}
+
+\setbeamertemplate{frame footer}{
+\vspace*{0mm}%
+\hspace*{1mm}\textbf{Presenting author:}
+\insertshortauthor% 
+\newline%
+\vspace*{-1mm}%
+\hspace*{1mm}Decision \& Control Lab. (\url{http://dclab.poliba.it/}), Politecnico di Bari, Italy.}
+\endinput
+
+
+

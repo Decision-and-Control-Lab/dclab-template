@@ -1,0 +1,88 @@
+\title{Title of Introduction}
+\label{sec:intro}
+\maketitle
+
+\section{Title of Section}
+Lorem ipsum dolor sit amet, consectetur adipiscing elit \cite{doe2020lorem}.  
+Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua \cite{roe2018ipsum}.  
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\footnote{This is a sample footnote.}  
+
+\subsection{Equation Example}
+
+A dummy equation to illustrate formatting:
+\begin{equation}
+    y = a x^2 + b x + c,
+\end{equation}
+where $a, b, c \in \mathbb{R}$ are arbitrary constants \cite{smith2015dolor}.
+
+\subsection{Acronyms Example}
+\begin{itemize}
+    \item This is an acronym with default behaviour: \gls{ai}.
+    \item This is short only: \acrshort{ml}.
+    \item This is long only: \acrlong{ai}.
+    \item This is full version: \acrfull{ml}.
+\end{itemize}
+
+\subsection{Theorem and Remark}
+
+\begin{theorem}[Dummy theorem]
+If $a, b > 0$, then $a+b > 0$.
+\end{theorem}
+
+\begin{remark}
+This is a simple remark environment to highlight comments or explanations.
+\end{remark}
+
+\subsection{Lists Example}
+
+Here is a bullet list:
+\begin{itemize}
+    \item First bullet
+    \item Second bullet
+    \item Third bullet
+\end{itemize}
+
+Here is a numbered list:
+\begin{enumerate}
+    \item First item
+    \item Second item
+    \item Third item
+\end{enumerate}
+
+\subsection{Table Example}
+
+Here is a simple table (Table~\ref{tab:example}):
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+Column 1 & Column 2 & Column 3 \\
+\hline
+A & B & C \\
+1 & 2 & 3 \\
+X & Y & Z \\
+\hline
+\end{tabular}
+\caption{A dummy example table.}
+\label{tab:example}
+\end{table}
+
+\subsection{Figure Example}
+
+Here is a dummy figure (Figure~\ref{fig:example}):  
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.4\textwidth]{example-image} 
+\caption{A sample figure}
+\label{fig:example}
+\end{figure}
+
+%% -------------------------------
+%% CHAPTER-BASED BIBLIOGRAPHY
+%% -------------------------------
+%% Uncomment the lines below ONLY if you want a separate bibliography
+%% at the end of THIS chapter (paper-based thesis style).
+% \printbibliography[heading=subbibliography, title={References}]
+% \stopcontents[chapters]

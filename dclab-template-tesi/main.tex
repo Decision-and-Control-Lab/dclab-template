@@ -1,0 +1,87 @@
+%%                                                          %%
+%% Decision & Control Lab.                                  %%
+%% Politecnico di Bari                                      %%
+%%                                                          %%
+%% Template per la redazione della tesi di laurea con il    %%
+%% Decision and Control Lab.                                 %%
+%%                                                          %%
+%% NON MODIFICARE i file nella cartella 00-settings.    %%
+%% Dichiarazione della classe e caricamento dei pacchetti   %%
+\documentclass[11pt, a4paper, oneside]{book}                %%
+\usepackage{00-settings/style}                        %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CONFIGURA QUI: tutte le informazioni della tesi si cambiano
+% modificando solo questo blocco, non serve toccare altri file.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% --- Lingua ---
+\usepackage[italian]{babel}      % Tesi in italiano
+%\usepackage[english]{babel}     % Tesi in inglese: commentare la riga sopra e decommentare questa
+
+% Impostazioni numerazione sezioni
+\setcounter{secnumdepth}{5} % livello delle sezioni numerate nella tesi
+\setcounter{tocdepth}{3}    % livello delle sezioni incluse nell'indice
+
+% --- Informazioni personali (da modificare) ---
+\newcommand{\titolo}{<Questo è il titolo della tesi>}
+\newcommand{\autore}{Nome Cognome}
+\newcommand{\relatore}{Nome Cognome}
+\newcommand{\correlatori}{Nome Cognome \\ Nome2 Cognome2} % rimuovere se non ci sono correlatori
+\newcommand{\materia}{<Questo è l'insegnamento>}
+\newcommand{\corsodilaurea}{LAUREA MAGISTRALE IN INGEGNERIA <......>}
+\newcommand{\dipartimento}{<Questo è il DIPARTIMENTO>}
+\newcommand{\annoaccademico}{ANNO ACCADEMICO 20XX-20XX}
+
+% --- Logo del frontespizio ---
+% Per cambiare il logo basta sostituire il percorso qui sotto.
+% Metti la tua immagine (png/jpg/pdf) in 00-settings e indica il percorso.
+\renewcommand{\logo}{00-settings/LogoPoliBa.png}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%% Comandi per la generazione del frontespizio del sommario %%                       
+%% (NON MODIFICARE)                                         %%
+%% Frontespizio                                             %%
+\begin{document}                                            %%  
+\frontmatter                                                %%
+\begingroup                                                 %%
+\maketitle                                                  %%
+%% Liberatoria                                              %%
+\input{01-chapters/liberatoria}                             %%
+%% Ringraziamenti                                           %%
+\input{01-chapters/dedica.tex}                              %%
+%% Sommario                                                 %%
+\input{01-chapters/sommario.tex}                            %%
+%% Indice                                                   %%
+\cleardoublepage                                            %%
+\setcounter{page}{1}                                        %%
+\pagenumbering{Roman}                                       %%
+\tableofcontents                                            %%
+\listoffigures                                              %%
+\listoftables                                               %%
+\endgroup                                                   %%
+\mainmatter                                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Capitoli (aggiungere o rimuovere)
+\input{01-chapters/capitolo1}
+\input{01-chapters/capitolo2}
+\input{01-chapters/capitolo3}
+\input{01-chapters/capitolo4}
+\input{01-chapters/capitolo5}
+\input{01-chapters/capitolo6}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Bibliografia (non modificare)
+\backmatter
+\printbibliography[heading=bibintoc,title={Riferimenti}]
+%\printbibliography[heading=bibintoc,title={References}] % Per tesi in inglese decommentare
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Appendice (aggiungere o rimuovere)
+\appendix
+\input{01-chapters/appendiceA.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
