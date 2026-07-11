@@ -347,7 +347,17 @@ def normalize_relative(path: Path) -> str:
 
 def run_command(command: list[str], cwd: Path, timeout: int) -> subprocess.CompletedProcess[str]:
     try:
-        return subprocess.run(command, cwd=cwd, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, check=False, timeout=timeout)
+        return subprocess.run(
+            command,
+            cwd=cwd,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            check=False,
+            timeout=timeout,
+        )
     except FileNotFoundError as exc:
         raise BuildError(f"Comando non trovato: {command[0]}. Installa le dipendenze richieste.") from exc
     except subprocess.TimeoutExpired as exc:
@@ -359,6 +369,18 @@ def compile_template(template: Template, build_dir: Path, timeout: int) -> Path:
     if not latexmk:
         raise BuildError("latexmk non è installato o non è nel PATH.")
     main_relative = normalize_relative(template.main_file.relative_to(template.directory))
+    for source_dir, dirnames, _ in os.walk(template.directory):
+        source_path = Path(source_dir)
+        dirnames[:] = [
+            name for name in dirnames
+            if name not in ZIP_IGNORED_DIRS
+            and name not in IGNORED_DISCOVERY_DIRS
+            and not (source_path / name).is_symlink()
+        ]
+        relative = source_path.relative_to(template.directory)
+        if relative != Path("."):
+            (build_dir / relative).mkdir(parents=True, exist_ok=True)
+
     command = [latexmk, ENGINE_FLAGS[template.metadata.engine], "-interaction=nonstopmode", "-halt-on-error", "-file-line-error", f"-outdir={build_dir.resolve()}", main_relative]
     result = run_command(command, cwd=template.directory, timeout=timeout)
     if result.returncode != 0:
