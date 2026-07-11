@@ -1,0 +1,12 @@
+title: Relazione di tirocinio
+description: Template LaTeX per la relazione di tirocinio.
+main: main.tex
+engine: pdflatex
+author: DCLab
+tags:
+  - tirocinio
+  - relazione
+  - poliba
+  - italiano
+order: 50
+preview_page: 1

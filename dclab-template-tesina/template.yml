@@ -1,0 +1,12 @@
+title: Tesina
+description: Template LaTeX per una tesina o relazione breve.
+main: main.tex
+engine: pdflatex
+author: DCLab
+tags:
+  - tesina
+  - relazione
+  - poliba
+  - italiano
+order: 40
+preview_page: 1

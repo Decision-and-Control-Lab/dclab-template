@@ -1,0 +1,12 @@
+title: Presentazione Beamer DCLab
+description: Template LaTeX Beamer per presentazioni del Decision and Control Lab.
+main: main.tex
+engine: pdflatex
+author: DCLab
+tags:
+  - beamer
+  - presentazione
+  - slides
+  - dclab
+order: 10
+preview_page: 1

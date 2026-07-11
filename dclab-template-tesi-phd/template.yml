@@ -1,0 +1,12 @@
+title: Tesi di dottorato
+description: Template LaTeX per tesi di dottorato con frontespizio, capitoli e bibliografia.
+main: main.tex
+engine: pdflatex
+author: DCLab
+tags:
+  - tesi
+  - dottorato
+  - phd
+  - inglese
+order: 30
+preview_page: 1
