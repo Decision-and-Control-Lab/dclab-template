@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
 """Build the LaTeX template gallery.
-
-The repository is intentionally treated as data: template source files are
-never modified. Compiled PDFs and previews are written to the public asset
-directories configured in ``gallery.yml`` and all intermediate LaTeX files
-stay in a temporary directory.
 """
 
 from __future__ import annotations
@@ -517,7 +512,7 @@ def render_gallery(config: GalleryConfig, root: Path, built: Sequence[BuiltTempl
   <link rel="stylesheet" href="{stylesheet}">
 </head>
 <body>
-  <header class="site-header"><div class="shell"><p class="eyebrow">Decision &amp; Control Lab</p><h1>{title}</h1><p class="intro">Template LaTeX pronti da compilare, scaricare o aprire direttamente in Overleaf.</p></div></header>
+  <header class="site-header"><div class="shell"><p class="eyebrow">Decision &amp; Control Lab</p><h1>{title}</h1><p class="intro">Template LaTeX del D&amp;C Lab.</p></div></header>
   <main class="shell" id="main-content">
     <section class="controls" aria-label="Filtra template">
       <div class="control"><label for="search">Cerca</label><input id="search" type="search" placeholder="Titolo, descrizione o tag" autocomplete="off"></div>
@@ -528,7 +523,7 @@ def render_gallery(config: GalleryConfig, root: Path, built: Sequence[BuiltTempl
     <section class="template-grid" data-template-grid aria-label="Template disponibili">{cards_html}</section>
     <noscript><p class="noscript">Attiva JavaScript per usare ricerca, filtro e ordinamento.</p></noscript>
   </main>
-  <footer class="site-footer"><div class="shell"><p>Generato automaticamente da GitHub Actions.</p></div></footer>
+  <footer class="site-footer"><div class="shell"><p> </p></div></footer>
   <script>
     (() => {{
       const grid = document.querySelector('[data-template-grid]'); const cards = Array.from(grid.querySelectorAll('.template-card'));
