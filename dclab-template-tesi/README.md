@@ -55,7 +55,11 @@ vada cambiato lì, parlane prima con il relatore.
   in `01-chapters/appendiceA.tex`.
 - **Bibliografia**: aggiungi le voci in `references.bib` (si trovano
   cercando l'articolo su Google Scholar → "Cita" → BibTeX) e citale nel
-  testo con `\cite{nomeRiferimento}`.
+  testo con `\cite{nomeRiferimento}`. I riferimenti sono numerati in
+  ordine di citazione; citandone più di uno insieme
+  (`\cite{rif1,rif2,rif3}`) vengono compattati automaticamente in `[1-3]`.
+  Per i siti web usa il tipo `@misc` con il campo `howpublished`, come
+  nelle voci di esempio già presenti nel file.
 
 ## Problemi comuni
 
@@ -63,10 +67,13 @@ vada cambiato lì, parlane prima con il relatore.
   sbagliato in un `\input`, `\includegraphics` o `\lstinputlisting` —
   controlla che il file esista esattamente in quel percorso (maiuscole/
   minuscole comprese).
-- **Riferimenti bibliografici che compaiono come "?"**: su Overleaf,
-  imposta il compilatore su **pdfLaTeX** e assicurati che il menu
-  "Recompile from scratch" sia stato eseguito almeno una volta dopo aver
-  aggiunto una nuova citazione (biblatex/biber richiede più passaggi).
+- **Riferimenti bibliografici che compaiono come `[?]`**: succede quando
+  la bibliografia non è ancora stata rigenerata. Su Overleaf imposta il
+  compilatore su **pdfLaTeX** e premi *Recompile* una seconda volta: la
+  bibliografia richiede un passaggio in più per essere aggiornata. Se
+  dopo due compilazioni il problema resta, controlla che la chiave usata
+  in `\cite{...}` corrisponda esattamente a quella nel file
+  `references.bib` (maiuscole/minuscole comprese).
 - **Il logo non compare**: controlla che il percorso in
   `\renewcommand{\logo}{...}` punti a un file esistente dentro
   `00-settings/`.

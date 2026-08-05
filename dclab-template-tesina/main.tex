@@ -205,9 +205,13 @@ Le conclusioni riprendono lo scopo della tesina enunciato nel sommario e nell'in
 %%
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% STAMPA DELLA BIBLIOGRAFIA (NON MODIFICARE
-\printbibliography[heading=bibintoc,title={Riferimenti}]
-%\printbibliography[heading=bibintoc,title={References}] % Per tesina in inglese decommentare
+% STAMPA DELLA BIBLIOGRAFIA (NON MODIFICARE)
+% Il titolo della sezione ("Riferimenti bibliografici" / "References") viene
+% scelto automaticamente da babel in base alla lingua impostata in cima al
+% file: non serve modificare nulla qui se si passa dall'italiano all'inglese.
+\addcontentsline{toc}{section}{\refname}
+\bibliographystyle{unsrtnat}
+\bibliography{references}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Appendice

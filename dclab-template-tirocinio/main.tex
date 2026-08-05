@@ -278,8 +278,12 @@ Esempio (Python, con lo stile "pythonstyle" già definito nel pacchetto del labo
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % STAMPA DELLA BIBLIOGRAFIA (NON MODIFICARE
-\printbibliography[heading=bibintoc,title={Riferimenti}]
-%\printbibliography[heading=bibintoc,title={References}] % Per tesina in inglese decommentare
+% Il titolo della sezione ("Riferimenti bibliografici" / "References") viene
+% scelto automaticamente da babel in base alla lingua impostata in cima al
+% file: non serve modificare nulla qui se si passa dall'italiano all'inglese.
+\addcontentsline{toc}{section}{\refname}
+\bibliographystyle{unsrtnat}
+\bibliography{references}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}
 % FINE

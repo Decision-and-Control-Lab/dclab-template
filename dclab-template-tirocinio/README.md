@@ -54,16 +54,24 @@ confidenza con lo strumento.
   Python aggiungi l'opzione `[style=pythonstyle]`). Vedi l'esempio
   nella guida in appendice.
 - **Bibliografia**: aggiungi le voci in `references.bib` e citale nel
-  testo con `\cite{nomeRiferimento}`.
+  testo con `\cite{nomeRiferimento}`. I riferimenti sono numerati in
+  ordine di citazione; citandone più di uno insieme
+  (`\cite{rif1,rif2,rif3}`) vengono compattati automaticamente in `[1-3]`.
+  Per i siti web usa il tipo `@misc` con il campo `howpublished`, come
+  nelle voci di esempio già presenti nel file.
 
 ## Problemi comuni
 
 - **"File not found" in compilazione**: controlla il percorso esatto
   (maiuscole/minuscole comprese) in `\includegraphics` o
   `\lstinputlisting`.
-- **Riferimenti bibliografici che compaiono come "?"**: su Overleaf,
-  imposta il compilatore su **pdfLaTeX** e riesegui la compilazione da
-  zero ("Recompile from scratch") dopo aver aggiunto una citazione.
+- **Riferimenti bibliografici che compaiono come `[?]`**: succede quando
+  la bibliografia non è ancora stata rigenerata. Su Overleaf imposta il
+  compilatore su **pdfLaTeX** e premi *Recompile* una seconda volta: la
+  bibliografia richiede un passaggio in più per essere aggiornata. Se
+  dopo due compilazioni il problema resta, controlla che la chiave usata
+  in `\cite{...}` corrisponda esattamente a quella nel file
+  `references.bib` (maiuscole/minuscole comprese).
 - **I loghi del frontespizio non compaiono**: controlla i percorsi in
   `\renewcommand{\logosinistra}{...}` e `\renewcommand{\logodestra}{...}`.
 

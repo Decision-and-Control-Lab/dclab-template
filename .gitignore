@@ -29,3 +29,13 @@ _build/
 *.snm
 *.vrb
 *.synctex.gz
+*.synctex(busy)
+# Glossari/acronimi e indici analitici (template PhD)
+*.acn
+*.acr
+*.alg
+*.glo
+*.gls
+*.glg
+*.ist
+*.xdy

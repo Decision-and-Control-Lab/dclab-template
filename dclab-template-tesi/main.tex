@@ -75,9 +75,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% Bibliografia (non modificare)
+% Il titolo del capitolo ("Bibliografia" / "Bibliography") viene scelto
+% automaticamente da babel in base alla lingua impostata in cima al file:
+% non serve modificare nulla qui se si passa dall'italiano all'inglese.
 \backmatter
-\printbibliography[heading=bibintoc,title={Riferimenti}]
-%\printbibliography[heading=bibintoc,title={References}] % Per tesi in inglese decommentare
+\cleardoublepage
+\addcontentsline{toc}{chapter}{\bibname}
+\bibliographystyle{unsrtnat}
+\bibliography{references}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% Appendice (aggiungere o rimuovere)

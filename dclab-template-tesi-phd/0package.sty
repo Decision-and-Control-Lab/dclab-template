@@ -164,7 +164,10 @@ pdfpagemode=FullScreen,
 \urlstyle{same}
 
 %% Bibliography
-\RequirePackage{mathscinet}
+% NB: qui c'era \RequirePackage{mathscinet}, rimosso perche' non e' incluso
+% in TeX Live (quindi bloccava la compilazione con "File mathscinet.sty not
+% found") e non era comunque utilizzato: serve solo per i numeri Math Reviews
+% (comando \MR), che in questa tesi non compaiono.
 \RequirePackage[backend    = biber,
 sortcites  = true,
 giveninits = true,

@@ -1,8 +1,7 @@
 % File di lingua
-% \usepackage[italian]{babel}    
+% \usepackage[italian]{babel}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{csquotes}
 
 % Impostazioni grafiche
 \usepackage[top=3cm, bottom=3cm, left=2.5cm, right=2.5cm]{geometry}
@@ -10,8 +9,10 @@
 \usepackage[fit]{truncate}
 \usepackage[PetersLenny]{fncychap}
 \linespread{1.1}
+% Font del documento: Palatino (mathpazo copre sia testo che formule).
+% NB: non aggiungere qui \usepackage{times}: sovrascriverebbe il font del
+% testo lasciando le formule in Palatino, con un risultato incoerente.
 \usepackage{mathpazo}
-\usepackage{times}
 \usepackage{microtype}
 \usepackage{fancyhdr}
 \fancyhf{}
@@ -23,9 +24,13 @@
 \cfoot{\thepage}
 \rfoot{}
 
-% Bibliografia
-\usepackage[style=numeric, sorting=none]{biblatex}
-\addbibresource{references.bib}
+% Bibliografia (natbib + BibTeX)
+% Usiamo natbib con BibTeX invece di biblatex con Biber: BibTeX e' incluso
+% in ogni distribuzione LaTeX e non richiede un programma esterno separato,
+% quindi su Overleaf e' molto piu' veloce e non da' i tipici errori
+% "Biber did not run successfully" dovuti a versioni non compatibili.
+% Le opzioni danno citazioni numeriche compattate, es. [1-3] invece di [1,2,3].
+\usepackage[numbers,sort&compress]{natbib}
 
 % Tabelle
 \usepackage{tabularx}
@@ -40,17 +45,13 @@
 \usepackage{subfig}
 \usepackage{graphicx}
 \usepackage{float}
-\usepackage{minibox}
 
 % Formule
-\usepackage{amsmath}
+% (mathtools carica gia' amsmath, quindi non serve caricarlo a parte)
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{amsthm}
-\usepackage{eurosym}
-\usepackage[italian]{varioref}
 \usepackage{mathtools}
-\usepackage{mathrsfs}
 
 % ---------------------------------------------------------------
 % NOTAZIONE MATEMATICA CONDIVISA D&CLab (NON MODIFICARE)
@@ -108,10 +109,7 @@
 }
 
 % Utili
-\usepackage{import}
-\usepackage{url}
-\usepackage{ragged2e}
-\usepackage{changepage}
+% hyperref fornisce gia' il comando \url, quindi non serve il pacchetto url.
 \usepackage{hyperref}
 
 \hypersetup{%
