@@ -1,0 +1,11 @@
+title: Presentazione PowerPoint (ufficiale)
+description: Template PowerPoint ufficiale del laboratorio, con schema diapositiva proprio (loghi, piè di pagina e font Lato già impostati a livello di master).
+main: Template_presentazioni_ppt.pptx
+engine: asset
+preview_image: preview.png
+author: DCLab
+tags:
+  - powerpoint
+  - presentazione
+  - poliba
+order: 15

@@ -1,0 +1,12 @@
+title: Guida alla Tesi di Laurea
+description: Guida del laboratorio su come impostare e scrivere la tesi di laurea (struttura, stile, consigli pratici). Non è un template da compilare con i propri dati, ma un documento di riferimento da leggere.
+main: main.tex
+engine: pdflatex
+author: DCLab
+tags:
+  - guida
+  - tesi
+  - riferimento
+  - italiano
+order: 25
+preview_page: 1

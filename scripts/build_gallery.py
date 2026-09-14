@@ -42,6 +42,11 @@ LATEX_TEMP_SUFFIXES = {
     ".vrb", ".xdv",
 }
 ENGINE_FLAGS = {"pdflatex": "-pdf", "xelatex": "-xelatex", "lualatex": "-lualatex", "latexmk": "-pdf"}
+# "asset" e' un engine speciale per template non-LaTeX (es. .pptx): niente
+# compilazione, nessun PDF/anteprima generati automaticamente, la card della
+# gallery mostra solo un'immagine di anteprima fornita a mano (preview_image)
+# e un pulsante di download.
+VALID_ENGINES = set(ENGINE_FLAGS) | {"asset"}
 DOCUMENTCLASS_RE = re.compile(r"\\documentclass(?:\s*\[[^\]]*\])?\s*\{", re.IGNORECASE)
 
 
@@ -143,6 +148,7 @@ class TemplateMetadata:
     tags: tuple[str, ...]
     order: int
     preview_page: int
+    preview_image: str | None
 
 
 @dataclass(frozen=True)
@@ -160,7 +166,7 @@ class Template:
 @dataclass(frozen=True)
 class BuiltTemplate:
     template: Template
-    pdf_path: Path
+    pdf_path: Path | None  # None per i template "asset" (non-LaTeX): non c'e' un PDF.
     preview_path: Path
     zip_path: Path
 
@@ -197,9 +203,12 @@ def read_metadata(template_dir: Path) -> TemplateMetadata:
     description = string_value("description")
     main = string_value("main") or None
     engine = string_value("engine", "pdflatex").lower()
-    if engine not in ENGINE_FLAGS:
-        raise MetadataError(f"{path}: engine '{engine}' non supportato (usa pdflatex, xelatex o lualatex).")
+    if engine not in VALID_ENGINES:
+        raise MetadataError(f"{path}: engine '{engine}' non supportato (usa pdflatex, xelatex, lualatex o asset).")
     author = string_value("author")
+    preview_image = string_value("preview_image") or None
+    if engine == "asset" and not preview_image:
+        raise MetadataError(f"{path}: i template con engine 'asset' devono indicare 'preview_image'.")
 
     tags_value = raw.get("tags", [])
     if tags_value is None:
@@ -220,7 +229,7 @@ def read_metadata(template_dir: Path) -> TemplateMetadata:
         raise MetadataError(f"{path}: preview_page deve essere un intero.") from exc
     if preview_page < 1:
         raise MetadataError(f"{path}: preview_page deve essere almeno 1.")
-    return TemplateMetadata(title, description, main, engine, author, tags, order, preview_page)
+    return TemplateMetadata(title, description, main, engine, author, tags, order, preview_page, preview_image)
 
 
 def iter_tex_files(directory: Path) -> list[Path]:
@@ -254,6 +263,15 @@ def path_inside(path: Path, directory: Path) -> bool:
 
 
 def resolve_main_file(template_dir: Path, metadata: TemplateMetadata) -> Path:
+    if metadata.engine == "asset":
+        if not metadata.main:
+            raise MainFileError(f"{template_dir / 'template.yml'}: i template con engine 'asset' devono indicare 'main'.")
+        candidate = template_dir / Path(metadata.main)
+        if not path_inside(candidate, template_dir):
+            raise MainFileError(f"{template_dir / 'template.yml'}: main deve indicare un file interno alla cartella del template.")
+        if not candidate.is_file():
+            raise MainFileError(f"{template_dir / 'template.yml'}: main non trovato: {metadata.main}")
+        return candidate
     if metadata.main:
         candidate = template_dir / Path(metadata.main)
         if not path_inside(candidate, template_dir) or candidate.suffix.lower() != ".tex":
@@ -418,12 +436,15 @@ def is_latex_temp(path: Path) -> bool:
 
 def source_files_for_zip(template: Template) -> Iterable[tuple[Path, Path]]:
     generated_pdfs = {template.main_file.with_suffix(".pdf").resolve(), (template.directory / "main.pdf").resolve()}
+    excluded = set(generated_pdfs)
+    if template.metadata.engine == "asset" and template.metadata.preview_image:
+        excluded.add((template.directory / template.metadata.preview_image).resolve())
     for current, dirnames, filenames in os.walk(template.directory):
         current_path = Path(current)
         dirnames[:] = sorted(name for name in dirnames if name not in ZIP_IGNORED_DIRS and not (current_path / name).is_symlink())
         for filename in sorted(filenames):
             source = current_path / filename
-            if source.is_symlink() or source.resolve() in generated_pdfs or is_latex_temp(source) or filename in {".DS_Store", "Thumbs.db"}:
+            if source.is_symlink() or source.resolve() in excluded or is_latex_temp(source) or filename in {".DS_Store", "Thumbs.db"}:
                 continue
             yield source, source.relative_to(template.directory)
 
@@ -453,13 +474,6 @@ def relative_url(from_file: Path, target: Path) -> str:
     return value if value != "." else "./"
 
 
-def github_source_url(config: GalleryConfig, root: Path, template: Template) -> str:
-    repo = quote(config.github_repository, safe="/")
-    branch = quote(config.github_branch, safe="")
-    folder = quote(normalize_relative(template.directory.relative_to(root)), safe="/")
-    return f"https://github.com/{repo}/tree/{branch}/{folder}"
-
-
 def render_gallery(config: GalleryConfig, root: Path, built: Sequence[BuiltTemplate]) -> None:
     output = root / config.output_gallery
     output.parent.mkdir(parents=True, exist_ok=True)
@@ -473,13 +487,30 @@ def render_gallery(config: GalleryConfig, root: Path, built: Sequence[BuiltTempl
         tags = "".join(f'<span class="tag">{html.escape(tag)}</span>' for tag in template.metadata.tags)
         search_text = html.escape(" ".join((template.metadata.title, template.metadata.description, *template.metadata.tags)), quote=True)
         preview = html.escape(relative_url(config.output_gallery, item.preview_path), quote=True)
-        pdf = html.escape(relative_url(config.output_gallery, item.pdf_path), quote=True)
         download = html.escape(relative_url(config.output_gallery, item.zip_path), quote=True)
+        author_html = f'<p class="author">{author}</p>' if author else ""
+        if template.metadata.engine == "asset":
+            # Template non-LaTeX (es. .pptx): niente PDF ne' Overleaf, solo
+            # l'anteprima statica e il download dello zip.
+            alt_text = f"Anteprima di {title}"
+            cards.append(f'''<article class="template-card" data-search="{search_text}" data-tags="{html.escape(" ".join(template.metadata.tags), quote=True)}" data-order="{template.metadata.order}" data-name="{html.escape(template.metadata.title, quote=True)}">
+  <a class="preview-link" href="{download}" download>
+    <img src="{preview}" loading="lazy" alt="{alt_text}">
+  </a>
+  <div class="card-body">
+    <h2>{title}</h2>
+    {author_html}
+    <p class="description">{description}</p>
+    <div class="tags" aria-label="Tag">{tags}</div>
+    <div class="actions">
+      <a class="button button-primary" href="{download}" download>Scarica ZIP</a>
+    </div>
+  </div>
+</article>''')
+            continue
+        pdf = html.escape(relative_url(config.output_gallery, item.pdf_path), quote=True)
         absolute_zip = public_url(config.base_url, item.zip_path)
         overleaf = "https://www.overleaf.com/docs?" + urlencode({"snip_uri": absolute_zip, "main_document": normalize_relative(template.main_file.relative_to(template.directory))})
-        source = github_source_url(config, root, template)
-        author_html = f'<p class="author">{author}</p>' if author else ""
-        source_html = f'<a class="button button-secondary" href="{html.escape(source, quote=True)}" target="_blank" rel="noopener">Sorgenti su GitHub</a>'
         cards.append(f'''<article class="template-card" data-search="{search_text}" data-tags="{html.escape(" ".join(template.metadata.tags), quote=True)}" data-order="{template.metadata.order}" data-name="{html.escape(template.metadata.title, quote=True)}">
   <a class="preview-link" href="{pdf}" target="_blank" rel="noopener">
     <img src="{preview}" loading="lazy" alt="Anteprima della prima pagina di {title}">
@@ -493,7 +524,6 @@ def render_gallery(config: GalleryConfig, root: Path, built: Sequence[BuiltTempl
       <a class="button button-primary" href="{pdf}" target="_blank" rel="noopener">Anteprima PDF</a>
       <a class="button button-secondary" href="{download}" download>Scarica ZIP</a>
       <a class="button button-secondary" href="{html.escape(overleaf, quote=True)}" target="_blank" rel="noopener">Open in Overleaf</a>
-      {source_html}
     </div>
   </div>
 </article>''')
@@ -552,6 +582,21 @@ def clean_generated_outputs(root: Path, config: GalleryConfig) -> None:
 def build_one(template: Template, root: Path, config: GalleryConfig, temporary_root: Path, skip_compile: bool) -> BuiltTemplate:
     build_dir = temporary_root / template.slug
     build_dir.mkdir(parents=True, exist_ok=True)
+    zip_path = root / config.output_downloads / f"{template.slug}.zip"
+    build_zip(template, zip_path)
+    if template.metadata.engine == "asset":
+        # Nessuna compilazione: il file (es. .pptx) e' gia' il deliverable.
+        # L'anteprima non si puo' generare automaticamente (non c'e' un
+        # renderer per formati non-LaTeX in questo ambiente), quindi si usa
+        # l'immagine indicata in template.yml (preview_image).
+        assert template.metadata.preview_image  # garantito da read_metadata
+        preview_source = template.directory / template.metadata.preview_image
+        if not preview_source.is_file():
+            raise BuildError(f"preview_image non trovata per {template.name}: {template.metadata.preview_image}")
+        preview_path = root / config.output_previews / f"{template.slug}{preview_source.suffix.lower()}"
+        preview_path.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(preview_source, preview_path)
+        return BuiltTemplate(template, None, config.output_previews / preview_path.name, config.output_downloads / zip_path.name)
     if skip_compile:
         pdf_source = find_existing_pdf(template)
         if not pdf_source:
@@ -560,11 +605,9 @@ def build_one(template: Template, root: Path, config: GalleryConfig, temporary_r
         pdf_source = compile_template(template, build_dir, config.compile_timeout_seconds)
     pdf_path = root / config.output_pdfs / f"{template.slug}.pdf"
     preview_path = root / config.output_previews / f"{template.slug}.png"
-    zip_path = root / config.output_downloads / f"{template.slug}.zip"
     pdf_path.parent.mkdir(parents=True, exist_ok=True)
     shutil.copy2(pdf_source, pdf_path)
     make_preview(pdf_path, preview_path, template.metadata.preview_page, config.preview_dpi)
-    build_zip(template, zip_path)
     return BuiltTemplate(template, config.output_pdfs / pdf_path.name, config.output_previews / preview_path.name, config.output_downloads / zip_path.name)
 
 

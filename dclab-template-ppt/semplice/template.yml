@@ -1,0 +1,11 @@
+title: Presentazione PowerPoint (semplice)
+description: Versione PowerPoint del template beamer del laboratorio, con slide di esempio già pronte (indice, tabelle, figure, blocchi, codice) e loghi in basso a destra.
+main: main.pptx
+engine: asset
+preview_image: preview.png
+author: DCLab
+tags:
+  - powerpoint
+  - presentazione
+  - dclab
+order: 16

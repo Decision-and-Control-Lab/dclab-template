@@ -22,6 +22,7 @@ _build/
 *.lot
 *.bbl
 *.bcf
+*.run.xml
 *.blg
 *.fdb_latexmk
 *.fls
